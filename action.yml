@@ -9,10 +9,7 @@ inputs:
     description: 'Directory where the terraform binary will be downloaded. The only requisite is that no directory on your project must be named the same'
     required: true
     default: 'install-terraform-dir'
-outputs:
-  learning-outputs:
-    description: "something"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+
 runs:
   using: "composite"
   steps:
