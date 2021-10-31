@@ -1,0 +1,41 @@
+name: 'Install Terraform'
+description: 'Installs terraform in a clean directory'
+inputs:
+  version:  # id of input
+    description: 'The version of terraform to install'
+    required: true
+    default: '1.0.6'
+  working-directory:
+    description: 'Directory where the terraform binary will be downloaded. The only requisite is that no directory on your project must be named the same'
+    required: true
+    default: 'install-terraform-dir'
+outputs:
+  learning-outputs:
+    description: "something"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - run: Installing terraform version ${{ inputs.version }}.
+      shell: bash
+    - name: mv to the working directory
+      run: |
+        mkdir ${{ inputs.working-directory }}
+        cd ${{ inputs.working-directory }}
+
+    - name: downloads Terraform binary
+      working-directory: ${{ inputs.working-directory }}
+      run: wget https://releases.hashicorp.com/terraform/1.0.6/terraform_1.0.6_linux_amd64.zip
+
+    - name: unzips Terraform binary
+      working-directory: ${{ inputs.working-directory }}
+      run: unzip terraform_1.0.6_linux_amd64.zip
+
+    - name: moves terraform binary to path
+      working-directory: ${{ inputs.working-directory }}
+      run:  sudo mv ./terraform /usr/local/bin
+
+    - name: cleans ${{ inputs.working-directory }}
+      run: |
+        rm -rf ${{ inputs.working-directory }}
+
