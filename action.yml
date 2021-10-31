@@ -13,7 +13,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: Installing terraform version ${{ inputs.version }}.
+    - run:  echo Installing terraform version ${{ inputs.version }}.
       shell: bash
     - name: mv to the working directory
       shell: bash
